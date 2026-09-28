@@ -3,6 +3,7 @@
 #definimos las variables
 size_tablero: int = 8
 coordinadas_columnas: list = ["a", "b", "c", "d", "e", "f", "g", "h"]
+coordinadas_filas: list = ["8", "7", "6", "5", "4", "3", "2", "1"]
 
 #construimos una matriz de 8x8 que contiene los simbolos de las piezas
 
@@ -17,23 +18,22 @@ tablero_simbolos: list[list[str]] = [
     ["\u2656", "\u2658", "\u2657", "\u2655", "\u2654", "\u2657", "\u2658", "\u2656"]   #fila 7 (piezas blancas)
 ]
 
-#construimos una matriz de 8x8 que contiene los nombres de las piezas
+#construimos un diccionario que contiene las claves con los nombres de las piezas
 
-tablero_nombres: list[list[str]] = [
-    ["torre negra", "caballo negro", "alfíl negro", "dama negra", "rey negro", "alfíl negro", "caballo negro", "torre negra"], 
-    ["peón negro", "peón negro", "peón negro", "peón negro", "peón negro", "peón negro", "peón negro", "peón negro"], 
-    ["", "", "", "", "", "", "", ""], 
-    ["", "", "", "", "", "", "", ""], 
-    ["", "", "", "", "", "", "", ""], 
-    ["", "", "", "", "", "", "", ""], 
-    ["torre blanca", "caballo blanco", "alfíl blanco", "dama blanco", "rey blanco", "alfíl blanco", "caballo blanco", "torre blanca"],
-    ["peón blanco", "peón blanco", "peón blanco", "peón blanco", "peón blanco", "peón blanco", "peón blanco", "peón blanco"]
-]
+diccionario: dict = {"a8": "torre negra", "b8": "caballo negro", "c8": "alfíl negro", "d8": "dama negra",
+            "e8": "rey negro", "f8": 'alfíl negro', "g8": "caballo negro", "h8": "torre negra",
+            "a7": "peón negro", "b7": "peón negro", "c7": "peón negro", "d7": "peón negro",
+            "e7": "peón negro", "f7": "peón negro", "g7": "peón negro", "h7": "peón negro",
+            "a2": "torre blanca", "b2": "caballo blanco", "c2": "alfíl blanco", "d2": "dama blanco",
+            "e2": "rey blanco", "f2": "alfíl blanco", "g2": "caballo blanco", "h2": "torre blanca",
+            "a1": "peón blanco", "b1": "peón blanco", "c1": "peón blanco", "d1": "peón blanco",
+            "e1": "peón blanco", "f1": "peón blanco", "g1": "peón blanco", "h1": "peón blanco"
+}
 
 #construimos el tablero y lo imprimimos en la terminal
 
 #creamos un bucle para mostrar las coordenadas de las columnas (letras de "a" a "h")
-encabezado: str = ""
+encabezado: str = "  "
 for n in range(size_tablero):
     letra_columna: str = coordinadas_columnas[n]
     encabezado: str = encabezado + " " + letra_columna + " "
@@ -45,14 +45,16 @@ for i in range(size_tablero):
     linea: str = str(numero_fila) + " "
     for j in range(size_tablero):
         simbolo: str = tablero_simbolos[i][j]
-        if simbolo == "":                      #creamos una condicion que muestre un simbolo o un punto (vacio) dependiendo de si la celda esta vacia o no
+        if simbolo == "":                      #creamos una condicion que muestre un simbolo o un punto (vacio) dependiendo de si la celda esta vacia o no.
             celda: str = " . "
         else:
             celda: str = " " + simbolo + " "
-        linea: str = linea + celda             #unimos las coordenadas de las filas con las celdas
+        linea: str = linea + celda             #unimos las coordenadas de las filas con las celdas.
     print(linea)
 
-#aqui vamos a programar  
+# aqui vamos a programar el bucle que nos permitira introducir la casilla, comprobar si es valida y devolver la información según lo introducido.
+# este bucle también nos permitirá salir del bucle si no queremos salir.
+# dendro del bucle principal (bucle while), utilizamos un bucle para establecer los turnos.
 
 estado: str = "turno_blancas"
 
@@ -62,10 +64,27 @@ while estado != "salir":
         casilla: str = input("Casilla a consultar (o 'salir' para terminar): ")
         if casilla == "salir":
             estado == "salir"
+        elif (casilla[0] in coordinadas_columnas and casilla[1] in coordinadas_filas) == False:
+            print("casilla no valida")
+        else:
+            estado == "turno_negras"
+            contenido: str = diccionario.get(casilla, "casilla vacía")
+            if contenido == "casilla vacía":
+                print(f"la casilla {casilla} está vacía")
+            else:
+                print(f"en la casilla {casilla} hay: {contenido}")
 
-
-
-
-
-
-
+    elif estado == "turno_negras":
+            print("turno de las negras")
+            casilla: str = input("Casilla a consultar (o 'salir' para terminar): ")
+            if casilla == "salir":
+                estado == "salir"
+            elif (casilla[0] in coordinadas_columnas and casilla[1] in coordinadas_filas) == False:
+                print("casilla no valida")
+            else:
+                estado == "turno_blancas"
+                contenido: str = diccionario.get(casilla, "casilla vacía")
+                if contenido == "casilla vacía":
+                    print(f"la casilla {casilla} está vacía")
+                else:
+                    print(f"en la casilla {casilla} hay: {contenido}")
