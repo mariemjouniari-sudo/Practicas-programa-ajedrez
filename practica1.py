@@ -53,8 +53,8 @@ for i in range(size_tablero):
     print(linea)
 
 # aqui vamos a programar el bucle que nos permitira introducir la casilla, comprobar si es valida y devolver la información según lo introducido.
-# este bucle también nos permitirá salir del bucle si no queremos salir.
-# dendro del bucle principal (bucle while), utilizamos un bucle para establecer los turnos.
+# este bucle también nos permitirá salir del programa si queremos acabar la partida.
+# dendro del bucle principal (bucle while), utilizamos un bucle para ir alternando los turnos.
 
 estado: str = "turno_blancas"
 
@@ -63,17 +63,22 @@ while estado != "salir":
         print("turno de las blancas")
         casilla: str = input("Casilla a consultar (o 'salir' para terminar): ")
         if casilla == "salir":
-            estado == "salir"
-        elif (casilla[0] in coordinadas_columnas and casilla[1] in coordinadas_filas) == False:
+            estado = "salir"
+        elif (len(casilla) == 2 and casilla[0] in coordinadas_columnas and casilla[1] in coordinadas_filas) == False:
             print("casilla no valida")
+            # aquí no cambiamos el estado aún hasta que se introduzca una casilla válida.
         else:
-            estado == "turno_negras"
+            estado = "turno_negras"     # aquí ya cambia el estado, porque se imtroduce una casilla válida
+            # para que el código no nos de error y interrumpa el programa
+            # en vez de comprobar si la casilla está en el diccionario con in, utilizaremos la función "get()"
+            # también le aasignaremos un valor de por defecto para cuando la casilla no esté en el diccionario, que será "casilla vacía"
             contenido: str = diccionario.get(casilla, "casilla vacía")
             if contenido == "casilla vacía":
                 print(f"la casilla {casilla} está vacía")
             else:
                 print(f"en la casilla {casilla} hay: {contenido}")
 
+    # aquí se recorre el mismo bucle que el de arriba pero para cuando sea el turno de las negras.
     elif estado == "turno_negras":
             print("turno de las negras")
             casilla: str = input("Casilla a consultar (o 'salir' para terminar): ")
@@ -82,9 +87,12 @@ while estado != "salir":
             elif (casilla[0] in coordinadas_columnas and casilla[1] in coordinadas_filas) == False:
                 print("casilla no valida")
             else:
-                estado == "turno_blancas"
+                estado = "turno_blancas"
                 contenido: str = diccionario.get(casilla, "casilla vacía")
                 if contenido == "casilla vacía":
                     print(f"la casilla {casilla} está vacía")
                 else:
                     print(f"en la casilla {casilla} hay: {contenido}")
+
+print("")
+print("fin del programa, hasta la próxima!")
