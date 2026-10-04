@@ -18,7 +18,7 @@ tablero_simbolos: list[list[str]] = [
     ["\u2656", "\u2658", "\u2657", "\u2655", "\u2654", "\u2657", "\u2658", "\u2656"]   #fila 7 (piezas blancas)
 ]
 
-#construimos un diccionario que contiene las claves con los nombres de las piezas
+#construimos un diccionario que contiene las casillas con los nombres de las piezas
 
 diccionario: dict = {"a8": "torre negra", "b8": "caballo negro", "c8": "alfíl negro", "d8": "dama negra",
             "e8": "rey negro", "f8": 'alfíl negro', "g8": "caballo negro", "h8": "torre negra",
@@ -54,7 +54,7 @@ for i in range(size_tablero):
 
 # aqui vamos a programar el bucle que nos permitira introducir la casilla, comprobar si es valida y devolver la información según lo introducido.
 # este bucle también nos permitirá salir del programa si queremos acabar la partida.
-# dendro del bucle principal (bucle while), utilizamos un bucle para ir alternando los turnos.
+# dendro del bucle principal (bucle while), utilizamos un bucle if para ir alternando los turnos.
 
 estado: str = "turno_blancas"
 
