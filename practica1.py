@@ -24,10 +24,10 @@ diccionario: dict = {"a8": "torre negra", "b8": "caballo negro", "c8": "alfíl n
             "e8": "rey negro", "f8": 'alfíl negro', "g8": "caballo negro", "h8": "torre negra",
             "a7": "peón negro", "b7": "peón negro", "c7": "peón negro", "d7": "peón negro",
             "e7": "peón negro", "f7": "peón negro", "g7": "peón negro", "h7": "peón negro",
-            "a2": "torre blanca", "b2": "caballo blanco", "c2": "alfíl blanco", "d2": "dama blanco",
-            "e2": "rey blanco", "f2": "alfíl blanco", "g2": "caballo blanco", "h2": "torre blanca",
-            "a1": "peón blanco", "b1": "peón blanco", "c1": "peón blanco", "d1": "peón blanco",
-            "e1": "peón blanco", "f1": "peón blanco", "g1": "peón blanco", "h1": "peón blanco"
+            "a2": "peón blanco", "b2": "peón blanco", "c2": "peón blanco", "d2": "peón blanco",
+            "e2": "peón blanco", "f2": "peón blanco", "g2": "peón blanco", "h2": "peón blanco",
+            "a1": "torre blanca", "b1": "caballo blanco", "c1": "alfíl blanco", "d1": "dama blanca",
+            "e1": "rey blanco", "f1": "alfíl blanco", "g1": "caballo blanco", "h1": "torre blanca"
 }
 
 #construimos el tablero y lo imprimimos en la terminal
@@ -84,7 +84,7 @@ while estado != "salir":
             casilla: str = input("Casilla a consultar (o 'salir' para terminar): ")
             if casilla == "salir":
                 estado == "salir"
-            elif (casilla[0] in coordinadas_columnas and casilla[1] in coordinadas_filas) == False:
+            elif (len(casilla) == 2 and casilla[0] in coordinadas_columnas and casilla[1] in coordinadas_filas) == False:
                 print("casilla no valida")
             else:
                 estado = "turno_blancas"
